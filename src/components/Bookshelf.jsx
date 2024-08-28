@@ -34,6 +34,15 @@ function Bookshelf() {
     setBooks([]);
   }
 
+  function handleDeleteBook(e) {
+    const currentBooks = structuredClone(books);
+    const bookToDeleteIdx = currentBooks.findIndex(
+      (currentBook) => currentBook.id === e.target.dataset.bookId
+    );
+    currentBooks.splice(bookToDeleteIdx, 1);
+    setBooks(currentBooks);
+  }
+
   return (
     <div className="bookshelfDiv">
       <div className="formDiv">
@@ -67,7 +76,13 @@ function Bookshelf() {
             <div key={book.id} className="bookCard">
               <div className="book-title">{book.title}</div>
               <div className="book-author">by {book.author}</div>
-              <button className="remove-button">Remove Book</button>
+              <button
+                className="remove-button"
+                onClick={handleDeleteBook}
+                data-book-id={book.id}
+              >
+                Remove Book
+              </button>
             </div>
           );
         })}
