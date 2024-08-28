@@ -25,6 +25,10 @@ function Bookshelf() {
     setNewBook(addBook);
   }
 
+  function clearLibrary() {
+    setBooks([]);
+  }
+
   return (
     <div className="bookshelfDiv">
       <div className="formDiv">
@@ -48,6 +52,9 @@ function Bookshelf() {
           />
           <button>Add Book</button>
         </form>
+      </div>
+      <div className="clear-library">
+        <button onClick={clearLibrary}>Clear Library</button>
       </div>
       <div className="bookCardsDiv">
         {books.map((book, index) => {
