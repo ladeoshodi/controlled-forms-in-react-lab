@@ -14,6 +14,7 @@ function Bookshelf() {
 
   const [books, setBooks] = useState(initialBooks);
   const [newBook, setNewBook] = useState(initialNewBook);
+  const [filterBooks, setFilterBooks] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,8 +44,42 @@ function Bookshelf() {
     setBooks(currentBooks);
   }
 
+  function handleSearchInput(e) {
+    const currentFilteredBooks = structuredClone(books);
+    const filteredBooks = currentFilteredBooks.filter((currentBook) =>
+      currentBook.title.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFilterBooks(filteredBooks);
+  }
+
+  function renderBooks(booksToRender) {
+    return booksToRender.map((book) => {
+      return (
+        <div key={book.id} className="bookCard">
+          <div className="book-title">{book.title}</div>
+          <div className="book-author">by {book.author}</div>
+          <button
+            className="remove-button"
+            onClick={handleDeleteBook}
+            data-book-id={book.id}
+          >
+            Remove Book
+          </button>
+        </div>
+      );
+    });
+  }
+
   return (
     <div className="bookshelfDiv">
+      <input
+        className="search-input"
+        type="search"
+        name="search"
+        id="search"
+        onInput={handleSearchInput}
+        value={filterBooks.title}
+      />
       <div className="formDiv">
         <h3>Add a Book</h3>
         <form onSubmit={handleSubmit}>
@@ -71,21 +106,7 @@ function Bookshelf() {
         Clear Library
       </button>
       <div className="bookCardsDiv">
-        {books.map((book) => {
-          return (
-            <div key={book.id} className="bookCard">
-              <div className="book-title">{book.title}</div>
-              <div className="book-author">by {book.author}</div>
-              <button
-                className="remove-button"
-                onClick={handleDeleteBook}
-                data-book-id={book.id}
-              >
-                Remove Book
-              </button>
-            </div>
-          );
-        })}
+        {filterBooks ? renderBooks(filterBooks) : renderBooks(books)}
       </div>
     </div>
   );
