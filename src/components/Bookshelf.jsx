@@ -23,7 +23,16 @@ function Bookshelf() {
           <button>Add Book</button>
         </form>
       </div>
-      <div className="bookCardsDiv">{/* Book cards will display here */}</div>
+      <div className="bookCardsDiv">
+        {books.map((book, index) => {
+          return (
+            <div key={index} className="bookCard">
+              <div className="book-title">{book.title}</div>
+              <div className="book-author">by {book.author}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
