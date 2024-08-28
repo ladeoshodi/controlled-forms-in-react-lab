@@ -83,7 +83,6 @@ input {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  margin-bottom: 15px;
 }
 
 .bookCardsDiv {
@@ -112,9 +111,10 @@ input {
   margin-bottom: 15px;
 }
 
-.clear-library button {
-  background-color: red;
+.remove-button {
+  background-color: rgb(177, 29, 29);
   color: white;
+  margin: 15px;
 }
 
 @media (prefers-color-scheme: light) {

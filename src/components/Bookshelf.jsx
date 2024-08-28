@@ -2,8 +2,12 @@ import { useState } from "react";
 
 function Bookshelf() {
   const initialBooks = [
-    { title: "Fourth Wing", author: "Rebecca Yarros" },
-    { title: "The Lion, the Witch and the Wardrobe", author: "C.S. Lewis" },
+    { title: "Fourth Wing", author: "Rebecca Yarros", id: crypto.randomUUID() },
+    {
+      title: "The Lion, the Witch and the Wardrobe",
+      author: "C.S. Lewis",
+      id: crypto.randomUUID(),
+    },
   ];
 
   const initialNewBook = { title: "", author: "" };
@@ -21,6 +25,7 @@ function Bookshelf() {
 
   function handleChange(e) {
     const addBook = structuredClone(newBook);
+    addBook["id"] = crypto.randomUUID();
     addBook[e.target.name] = e.target.value;
     setNewBook(addBook);
   }
@@ -53,15 +58,16 @@ function Bookshelf() {
           <button>Add Book</button>
         </form>
       </div>
-      <div className="clear-library">
-        <button onClick={clearLibrary}>Clear Library</button>
-      </div>
+      <button className="remove-button" onClick={clearLibrary}>
+        Clear Library
+      </button>
       <div className="bookCardsDiv">
-        {books.map((book, index) => {
+        {books.map((book) => {
           return (
-            <div key={index} className="bookCard">
+            <div key={book.id} className="bookCard">
               <div className="book-title">{book.title}</div>
               <div className="book-author">by {book.author}</div>
+              <button className="remove-button">Remove Book</button>
             </div>
           );
         })}
