@@ -19,9 +19,11 @@ function Bookshelf() {
   function handleSubmit(e) {
     e.preventDefault();
     const updatedBooks = structuredClone(books);
-    updatedBooks.push(newBook);
-    setBooks(updatedBooks);
-    setNewBook(initialNewBook);
+    if (newBook.title) {
+      updatedBooks.push(newBook);
+      setBooks(updatedBooks);
+      setNewBook(initialNewBook);
+    }
   }
 
   function handleChange(e) {
