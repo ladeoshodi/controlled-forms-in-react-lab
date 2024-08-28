@@ -14,7 +14,7 @@ function Bookshelf() {
 
   const [books, setBooks] = useState(initialBooks);
   const [newBook, setNewBook] = useState(initialNewBook);
-  const [filterBooks, setFilterBooks] = useState("");
+  const [filterBooks, setFilterBooks] = useState(initialNewBook.title);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -47,9 +47,15 @@ function Bookshelf() {
   }
 
   function handleSearchInput(e) {
+    const searchInput = e.target.value;
+
+    if (!searchInput) {
+      setFilterBooks(initialNewBook.title);
+      return;
+    }
     const currentFilteredBooks = structuredClone(books);
     const filteredBooks = currentFilteredBooks.filter((currentBook) =>
-      currentBook.title.toLowerCase().includes(e.target.value.toLowerCase())
+      currentBook.title.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilterBooks(filteredBooks);
   }
@@ -81,6 +87,7 @@ function Bookshelf() {
         id="search"
         onInput={handleSearchInput}
         value={filterBooks.title}
+        placeholder="Enter Search..."
       />
       <div className="formDiv">
         <h3>Add a Book</h3>
